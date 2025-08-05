@@ -5,15 +5,28 @@ import Navbar from "~/components/Navbar";
 import ResumeCard from "~/components/ResumeCard";
 import TextPressure from "~/components/TextPressure";
 import TextType from "~/components/TextType";
+import { usePuterStore } from "~/lib/puter";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+// import AIChat from "~/components/AIChat"; // Uncomment if you want to use AI chat
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "Reschek" },
+    { title: "Track Your Applications and Get Smart Feedback for Your Resume" },
     { name: "description", content: "Analyze Your Resumes and Get Smart Feedback" },
   ];
 }
 
 export default function Home() {
+  const { auth, puterReady } = usePuterStore();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Only redirect if Puter is ready and user is not authenticated
+    if (puterReady && !auth.isAuthenticated) {
+      navigate('/auth?next=/');
+    }
+  }, [auth.isAuthenticated, puterReady, navigate]);
   return (
     <main className="relative min-h-screen">
       {/* Background DotGrid */}
@@ -37,7 +50,7 @@ export default function Home() {
           <div className="page-heading">
             <div style={{ position: 'relative', height: '100px', width: '100%', maxWidth: '1200px', marginBottom: '1rem' }}>
               <TextPressure
-                text="RESCHECK"
+                text="RESsCHECK"
                 flex={true}
                 alpha={false}
                 stroke={true}
@@ -64,11 +77,11 @@ export default function Home() {
           </div>
         </section>
         {resumes.length > 0 && (
-            <div className="resumes-section">
-        {resumes.map((resume) => (
+          <div className="resumes-section">
+            {resumes.map((resume) => (
               <ResumeCard key={resume.id} resume={resume} />
-        ))}
-            </div>
+            ))}
+          </div>
         )}
       </div>
     </main>

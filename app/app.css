@@ -82,7 +82,7 @@ form {
   }
 
   .auth-button {
-    @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-[600px] max-md:w-full text-3xl font-semibold text-white;
+    @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-full text-lg font-semibold text-white;
   }
 
   .main-section {
@@ -660,4 +660,16 @@ form {
 .resume-profile-card .pc-details p {
   font-size: 16px !important;
   top: -8px !important;
+}
+.text-block {
+  margin: 7vw;
+  max-width: 800px;
+  font-family: monospace;
+  font-size: clamp(14px, 4vw, 32px);
+  color: #fff;
+}
+
+.char {
+  will-change: transform;
+  display: inline-block;
 }
