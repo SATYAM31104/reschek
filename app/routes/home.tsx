@@ -5,9 +5,10 @@ import Navbar from "~/components/Navbar";
 import ResumeCard from "~/components/ResumeCard";
 import TextPressure from "~/components/TextPressure";
 import TextType from "~/components/TextType";
-import { usePuterStore } from "~/lib/puter";
+// Removed unused imports since we're not doing auth redirects anymore
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import { usePuterStore } from "~/lib/puter";
 // import AIChat from "~/components/AIChat"; // Uncomment if you want to use AI chat
 
 export function meta({ }: Route.MetaArgs) {
@@ -21,12 +22,7 @@ export default function Home() {
   const { auth, puterReady } = usePuterStore();
   const navigate = useNavigate();
   
-  useEffect(() => {
-    // Only redirect if Puter is ready and user is not authenticated
-    if (puterReady && !auth.isAuthenticated) {
-      navigate('/auth?next=/');
-    }
-  }, [auth.isAuthenticated, puterReady, navigate]);
+  // Remove automatic redirect - let users stay on pages when refreshing
   return (
     <main className="relative min-h-screen">
       {/* Background DotGrid */}
@@ -50,7 +46,7 @@ export default function Home() {
           <div className="page-heading">
             <div style={{ position: 'relative', height: '100px', width: '100%', maxWidth: '1200px', marginBottom: '1rem' }}>
               <TextPressure
-                text="RESsCHECK"
+                text="RESCHECK"
                 flex={true}
                 alpha={false}
                 stroke={true}
